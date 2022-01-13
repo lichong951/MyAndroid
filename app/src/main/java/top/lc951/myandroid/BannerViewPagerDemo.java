@@ -1,10 +1,10 @@
 package top.lc951.myandroid;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import com.chenyu.library.bannerViewPager.BannerViewPager;
 import com.chenyu.library.bannerViewPager.OnPageClickListener;
 import com.chenyu.library.bannerViewPager.ViewPagerAdapter;
+import com.example.indicatorlib.views.PageIndicatorView;
+import com.example.indicatorlib.views.animation.type.AnimationType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +64,10 @@ public class BannerViewPagerDemo extends AppCompatActivity {
             }
         });
         bannerViewPager.setAdapter(mAdapter);
+        PageIndicatorView pageIndicatorView = findViewById(R.id.pageIndicatorView);
+        pageIndicatorView.setViewPager(bannerViewPager.getViewPager());
+        pageIndicatorView.setAnimationType(AnimationType.WORM);
+
 
     }
 }

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -52,57 +54,58 @@ public class ViewPagerIndicator extends LinearLayout {
         setWillNotDraw(false);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.GRAY);
+        mPaint.setColor(Color.parseColor("#D3D3D3"));
 
         mMoveView = new MoveView(mContext);
         addView(mMoveView);
     }
 
-    public void setItemCount(int count){
+    public void setItemCount(int count) {
         this.mItemCount = count;
         requestLayout();
     }
 
-    public void setRadius(int radius){
+    public void setRadius(int radius) {
         this.mRadius = radius;
         this.mDistanceBtwItem = mRadius * 2 + mPadding;
         requestLayout();
     }
 
-    public void setPadding(int padding){
+    public void setPadding(int padding) {
         this.mPadding = padding;
         this.mDistanceBtwItem = mRadius * 2 + mPadding;
         requestLayout();
     }
 
-    public void setPositionAndOffset(int position,float offset){
+    public void setPositionAndOffset(int position, float offset) {
         this.mCurrentPosition = position;
-        this.mPositionOffset  =offset;
+        this.mPositionOffset = offset;
         requestLayout();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(mPadding + (mRadius*2 + mPadding) * mItemCount,2*mRadius + 2*mPadding);
+        setMeasuredDimension(mPadding + (mRadius * 2 + mPadding) * mItemCount, 2 * mRadius + 2 * mPadding);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         mMoveView.layout(
-                (int) (mPadding + mDistanceBtwItem * (mCurrentPosition + mPositionOffset) ),
+                (int) (mPadding + mDistanceBtwItem * (mCurrentPosition + mPositionOffset)),
                 mPadding,
-                (int) (mDistanceBtwItem * ( 1 + mCurrentPosition + mPositionOffset) ),
-                mPadding+mRadius*2);
+                (int) (mDistanceBtwItem * (1 + mCurrentPosition + mPositionOffset)),
+                mPadding + mRadius * 2);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for(int i = 0;i < mItemCount;i++){
-            canvas.drawCircle(mRadius + mPadding + mRadius * i *2 + mPadding * i,
-                    mRadius + mPadding,mRadius,mPaint);
+        for (int i = 0; i < mItemCount; i++) {
+            canvas.drawCircle(mRadius + mPadding + mRadius * i * 2 + mPadding * i,
+                    mRadius + mPadding, mRadius, mPaint);
+
         }
 
     }
@@ -114,19 +117,22 @@ public class ViewPagerIndicator extends LinearLayout {
             super(context);
             mPaint = new Paint();
             mPaint.setAntiAlias(true);
-            mPaint.setColor(Color.argb(255,255,176,93));
+//            mPaint.setColor(Color.argb(255,255,176,93));
+            mPaint.setColor(Color.parseColor("#0000FF"));
         }
 
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-            setMeasuredDimension(mRadius*2,mRadius*2);
+            setMeasuredDimension(mRadius * 2, mRadius * 2);
         }
 
         @Override
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
             canvas.drawCircle(mRadius,mRadius,mRadius,mPaint);
+//            RectF oval3 = new RectF(0, 0, mRadius*4, mRadius*2);// 设置个新的长方形
+//            canvas.drawRoundRect(oval3, mRadius*2, mRadius*2, mPaint);//第二个参数是x半径，第三个参数是y半径
         }
     }
 }

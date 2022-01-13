@@ -1,17 +1,15 @@
 package com.chenyu.library.bannerViewPager;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.FrameLayout;
 
-import androidx.viewpager.widget.ViewPager;
+import android.support.v4.view.ViewPager;
+
 
 /**
  * A BannerViewPager owns its indicators and it can roll automatically.
@@ -20,8 +18,12 @@ import androidx.viewpager.widget.ViewPager;
  * @author Chen Yu
  * @version 1.1.0
  * @date 2017-01-20
+ *
+ *
  */
 public class BannerViewPager extends FrameLayout implements ViewPager.OnPageChangeListener {
+
+
 
     private ViewPager mViewPager;
     private ViewPagerIndicator mIndicator;
@@ -39,7 +41,9 @@ public class BannerViewPager extends FrameLayout implements ViewPager.OnPageChan
     private boolean isFirstVisible;
     private static final int MESSAGE_AUTO_ROLLING = 0X1001;
     private static final int MESSAGE_AUTO_ROLLING_CANCEL = 0X1002;
-
+    public ViewPager getViewPager() {
+        return mViewPager;
+    }
     public BannerViewPager(Context context) {
         this(context, null);
     }
@@ -65,8 +69,9 @@ public class BannerViewPager extends FrameLayout implements ViewPager.OnPageChan
         //initialize the indicator
         mIndicator = new ViewPagerIndicator(mContext);
         FrameLayout.LayoutParams indicatorlp = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-        indicatorlp.gravity = Gravity.BOTTOM | Gravity.CENTER;
-        indicatorlp.bottomMargin = 20;
+        indicatorlp.gravity = Gravity.BOTTOM | Gravity.LEFT;
+        indicatorlp.bottomMargin = 16;
+        indicatorlp.leftMargin=24;
         mIndicator.setLayoutParams(indicatorlp);
         isFirstVisible = true;
     }
