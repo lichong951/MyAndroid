@@ -21,11 +21,11 @@ Android开发组件和模块功能DEMO，干货满满。拿来即用
 2.  如果xxx库满足需要即可import module 选中目标xxx库目录即可导入到自己工程
 3.  如有问题请提交wiki里
 
-#### 1）轮播图
+#### 1、轮播图
 ![轮播图](./static/轮播图_2022-01-13-14-06-11.gif)
 参考代码示例如下：
 
-``
+`
         
         ImageView iv1 = (ImageView) LayoutInflater.from(this).inflate(R.layout.banner_item,bannerViewPager,false);
         ImageView iv2 = (ImageView) LayoutInflater.from(this).inflate(R.layout.banner_item,bannerViewPager,false);
@@ -58,7 +58,38 @@ Android开发组件和模块功能DEMO，干货满满。拿来即用
             }
         });
         bannerViewPager.setAdapter(mAdapter);
-``
+
+`
+#### 2、多功能指示器
+
+![](./static/指示器.png)
+
+xml：
+
+```
+<com.example.indicatorlib.views.PageIndicatorView
+        android:id="@+id/pageIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintTop_toBottomOf="@id/banner"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        attrs:piv_padding="12dp"
+        attrs:piv_radius="8dp" />
+ 
+```
+
+java
+
+```
+ PageIndicatorView pageIndicatorView = findViewById(R.id.pageIndicatorView);
+        pageIndicatorView.setViewPager(bannerViewPager.getViewPager());
+        pageIndicatorView.setAnimationType(AnimationType.WORM);//动画效果设置
+
+```
 
 
 #### 参与贡献
