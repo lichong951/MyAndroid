@@ -10,10 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
         <activity
-            android:label="轮播图"
-            android:name=".BannerViewPagerDemo"></activity>
+            android:label="轮播图2"
+            android:name=".BannerViewPagerDemo2"></activity>
         <activity
-            android:name=".MainActivity">
+            android:name=".BannerViewPagerDemo"
+            android:label="轮播图1" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

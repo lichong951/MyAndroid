@@ -13,7 +13,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void goTOBannerVP(View view){
+    public void goTOBannerVP1(View view){
         BannerViewPagerDemo.actionActivity(this);
+    }
+    public void goTOBannerVP2(View view){
+        BannerViewPagerDemo2.actionActivity(this);
     }
 }

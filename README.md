@@ -21,11 +21,12 @@ Android开发组件和模块功能DEMO，干货满满。拿来即用
 2.  如果xxx库满足需要即可import module 选中目标xxx库目录即可导入到自己工程
 3.  如有问题请提交wiki里
 
-#### 1、轮播图
+#### 1、轮播图1
 ![轮播图](./static/轮播图_2022-01-13-14-06-11.gif)
+
 参考代码示例如下：
 
-`
+```
         
         ImageView iv1 = (ImageView) LayoutInflater.from(this).inflate(R.layout.banner_item,bannerViewPager,false);
         ImageView iv2 = (ImageView) LayoutInflater.from(this).inflate(R.layout.banner_item,bannerViewPager,false);
@@ -59,7 +60,76 @@ Android开发组件和模块功能DEMO，干货满满。拿来即用
         });
         bannerViewPager.setAdapter(mAdapter);
 
-`
+```
+
+##### 轮播图2 BannerViewPagerDemo2
+
+优雅的实现手动滑到最后一页再向后滑动回到第一页
+
+```
+int scrollState = ViewPager.SCROLL_STATE_IDLE;
+    private int lastValue = -1;
+    private boolean canMove = true;
+    ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            Log.i(TAG, "position=" + position + ",positionOffset=" + positionOffset + " ,positionOffsetPixels=" + positionOffsetPixels);
+            if (scrollState == ViewPager.SCROLL_STATE_DRAGGING) {
+                if (lastValue > positionOffsetPixels) {
+                    Log.d(TAG, "向右滑动");
+                } else if (lastValue < positionOffsetPixels) {
+                    Log.d(TAG, "向左滑动");
+                } else {
+                    Log.e(TAG, "暂无法判断滑动方向");
+                }
+                if (0.0f == positionOffset && 0 == positionOffsetPixels) {
+                    canMove = false;
+                } else {
+                    canMove = true;
+                }
+            }
+            lastValue = positionOffsetPixels;
+        }
+
+        @Override
+        public void onPageSelected(int i) {
+            Log.d(TAG, "onPageSelected index=" + i);
+            setSelectedIndicator(i);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+            Log.d(TAG, "onPageScrollStateChanged i=" + i);
+
+            if (ViewPager.SCROLL_STATE_DRAGGING == scrollState
+                    && i == ViewPager.SCROLL_STATE_IDLE
+                    && !canMove
+            ) {
+                if ( 0==viewPager.getCurrentItem() ) {
+                    Log.d(TAG, "已在第一页了" + viewPager.getCurrentItem());
+                }else{
+                    Log.d(TAG, "已在最后一页了" + viewPager.getCurrentItem());
+                    viewPager.setCurrentItem(0);
+                }
+            }
+            scrollState = i;
+        }
+    };    
+```
+滑动到第一页或者最后一页 滑动参数
+
+position=0,positionOffset=0.0 ,positionOffsetPixels=0
+
+position=4,positionOffset=0.0 ,positionOffsetPixels=0
+
+一共4页
+
+过程中判断是从ViewPager.SCROLL_STATE_DRAGGING滑动到停止滑动ViewPager.SCROLL_STATE_IDLE，在状态还保存为ViewPager.SCROLL_STATE_DRAGGING依据canMove滑动标识为停止。 接着判断当前的页数在第一还是最后一页来判断。
+
+
+
+
+
 #### 2、多功能指示器
 
 ![](./static/指示器.png)
