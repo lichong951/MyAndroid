@@ -1,0 +1,4 @@
+include ':indicatorlib'
+include ':BannerViewPager'
+include ':app'
+rootProject.name = "MyAndroid"
